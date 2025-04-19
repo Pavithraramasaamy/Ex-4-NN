@@ -1,8 +1,8 @@
 
-<H3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
+<H3>ENTER YOUR NAME : PAVITHRA R</H3>
+<H3>ENTER YOUR REGISTER NO. 212222230106</H3>
 <H3>EX. NO.4</H3>
-<H3>DATE:</H3>
+<H3>DATE:19-04-2025</H3>
 <H1 ALIGN =CENTER>Implementation of MLP with Backpropagation for Multiclassification</H1>
 <H3>Aim:</H3>
 To implement a Multilayer Perceptron for Multi classification
@@ -116,11 +116,82 @@ Normalize our dataset.
 
 <H3>Program:</H3> 
 
-Insert your code here
+```python
+import pandas as pd
+import sklearn
+from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import classification_report, confusion_matrix
+
+# Load the Iris dataset from UCI repository
+url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+names = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'Class']
+irisdata = pd.read_csv(url, names=names)
+
+# Prepare features (X) and labels (y)
+X = irisdata.iloc[:, 0:4]
+y = irisdata.select_dtypes(include=[object])
+
+# Display sample data
+print("Features (first 5 rows):")
+print(X.head())
+print("\nLabels (first 5 rows):")
+print(y.head())
+
+# Show unique classes
+print("\nUnique classes in the dataset:")
+print(y.Class.unique())
+
+# Convert categorical labels to numerical values
+le = preprocessing.LabelEncoder()
+y = y.apply(le.fit_transform)
+print("\nEncoded labels (first 5 rows):")
+print(y.head())
+
+# Split data into training and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20)
+
+# Standardize features
+scaler = StandardScaler()
+scaler.fit(X_train)
+X_train = scaler.transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Create and train Multi-layer Perceptron classifier
+mlp = MLPClassifier(hidden_layer_sizes=(10, 10, 10), max_iter=1000)
+mlp.fit(X_train, y_train.values.ravel())
+
+# Make predictions
+predictions = mlp.predict(X_test)
+print("\nModel predictions:")
+print(predictions)
+
+# Evaluate model performance
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, predictions))
+print("\nClassification Report:")
+print(classification_report(y_test, predictions))
+```
 
 <H3>Output:</H3>
 
-Show your results here
+![Screenshot 2025-04-19 093410](https://github.com/user-attachments/assets/a6e6d1e3-700e-47c8-b43b-443d94f222cc)
+
+![Screenshot 2025-04-19 093428](https://github.com/user-attachments/assets/2bec686f-88bc-483f-8f3f-616a16f4c87e)
+
+![Screenshot 2025-04-19 093446](https://github.com/user-attachments/assets/e4221344-0fdc-48f2-ba5e-0e891b4bae51)
+
+![Screenshot 2025-04-19 093500](https://github.com/user-attachments/assets/618a324e-9bb5-40c9-b993-4b98e48e89e2)
+
+![Screenshot 2025-04-19 093517](https://github.com/user-attachments/assets/51d5c440-e44a-4605-9d28-3c87eeb630c3)
+
+![Screenshot 2025-04-19 093532](https://github.com/user-attachments/assets/d38b975a-5dd8-4a38-a50c-ed72be16b71b)
+
+
 
 <H3>Result:</H3>
+
 Thus, MLP is implemented for multi-classification using python.
+
